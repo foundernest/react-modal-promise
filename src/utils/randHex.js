@@ -1,4 +1,4 @@
-const randHex = (len = 12) => {
+export const randHex = (len = 12) => {
   const maxlen = 8
   const min = Math.pow(16, Math.min(len, maxlen) - 1)
   const max = Math.pow(16, Math.min(len, maxlen)) - 1
@@ -9,5 +9,3 @@ const randHex = (len = 12) => {
   }
   return r
 }
-
-export default randHex

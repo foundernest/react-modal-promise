@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import ModalFactory from './ModalFactory'
 
-const modal = {}
+let modalFactoryRef = {}
 
-const PromiseModal = () => (
-  <ModalFactory ref={node => { modal.stack = node }} />
-)
+const PromiseModal = () => {
+  modalFactoryRef = useRef(null)
+  return <ModalFactory ref={modalFactoryRef} />
+}
 
-const createModal = (Component, options) => props => modal.stack.create(Component, options)(props)
+const createModal = (Component, options) => props => modalFactoryRef.current.addModal(Component, options)(props)
 
 export default PromiseModal
 
