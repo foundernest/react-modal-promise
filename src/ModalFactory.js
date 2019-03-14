@@ -17,8 +17,8 @@ import { delay } from "./utils/delay";
 
 const defaultOptions = {
   timeout: {
-    enter: 500,
-    exit: 500
+    enter: 225,
+    exit: 195
   }
 };
 
@@ -43,11 +43,11 @@ const ModalFactory = ({ className }, ref) => {
       modal => modal.hash === hash
     );
     const { timeout } = modals[modalToDeleteIndex];
-    setModals(removeArrayItemByIndex(modals, modalToDeleteIndex));
     setModalStates(
       insertObjectItem(modalStates, { [hash]: modalTransitionStates.exiting })
     );
     await delay(timeout.exit);
+    setModals(removeArrayItemByIndex(modals, modalToDeleteIndex));
     setModalStates(removeObjectItemByKey(modalStates, hash));
   };
 
