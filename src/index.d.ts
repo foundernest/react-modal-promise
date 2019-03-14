@@ -7,8 +7,10 @@ declare module "react-modal-promise" {
     exit: number;
   };
 
+  export type ModalTransitionState = "entering" | "entered" | "exiting";
+
   export type InjectedModalProps<Result> = {
-    open: boolean;
+    transitionState: ModalTransitionState;
     timeout: ModalTimeout;
     onClose: (result: Result) => void;
   };
@@ -19,9 +21,12 @@ declare module "react-modal-promise" {
       options?: {
         timeout?: ModalTimeout;
       }
-    ): (props: Omit<T, "open" | "onClose" | "timeout">) => Result;
+    ): (props: Omit<T, "transitionState" | "onClose" | "timeout">) => Result;
   }
 
+  type CloseModal = (hash: string) => void;
+
+  export const closeModal: CloseModal;
   export const createModal: CreateModal;
 
   const PromiseModal: React.SFC<{}>;

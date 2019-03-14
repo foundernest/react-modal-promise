@@ -1,7 +1,9 @@
 import React, {
   useState,
   useImperativeHandle,
-  forwardRef
+  forwardRef,
+  useRef,
+  useEffect
 } from "react";
 import { randHex } from "./utils/randHex";
 import {
@@ -20,19 +22,33 @@ const defaultOptions = {
   }
 };
 
+const modalTransitionStates = {
+  entering: "entering",
+  entered: "entered",
+  exiting: "exiting"
+};
+
 const ModalFactory = ({ className }, ref) => {
   const [modals, setModals] = useState([]);
-  const [openModals, setOpenModals] = useState({});
+  const [modalStates, setModalStates] = useState({});
+  const stateRef = useRef({ modals, modalStates });
+  useEffect(() => {
+    stateRef.current = { modals, modalStates }
+  })
 
   const deleteModal = async hash => {
+    const { modals, modalStates } = stateRef.current
     const modalToDeleteIndex = getArrayIndexOfItem(
       modals,
       modal => modal.hash === hash
     );
-    const modalToDelete = modals[modalToDeleteIndex];
+    const { timeout } = modals[modalToDeleteIndex];
     setModals(removeArrayItemByIndex(modals, modalToDeleteIndex));
-    await delay(modalToDelete.timeout.exit);
-    setOpenModals(removeObjectItemByKey(openModals, hash));
+    setModalStates(
+      insertObjectItem(modalStates, { [hash]: modalTransitionStates.exiting })
+    );
+    await delay(timeout.exit);
+    setModalStates(removeObjectItemByKey(modalStates, hash));
   };
 
   const addModal = (Component, options = {}) => props => {
@@ -51,28 +67,40 @@ const ModalFactory = ({ className }, ref) => {
         ...resultOptions
       };
       setModals(insertArrayItem(modals, newModal));
+      setModalStates(
+        insertObjectItem(modalStates, {
+          [hash]: modalTransitionStates.entering
+        })
+      );
       await delay(resultOptions.timeout.enter);
-      setOpenModals(insertObjectItem(openModals, hash));
+      setModalStates(
+        insertObjectItem(modalStates, { [hash]: modalTransitionStates.entered })
+      );
     });
   };
 
   useImperativeHandle(ref, () => ({
-    addModal
+    addModal,
+    deleteModal
   }));
 
   const modalComponents = modals.map(
-    ({ Component, props, hash, resolve, timeout }) => (
+    ({ Component, props, hash, handleClose, timeout }) => (
       <Component
         {...props}
         key={hash}
         timeout={timeout}
-        open={Boolean(openModals[hash])}
-        onClose={resolve}
+        transitionState={modalStates[hash]}
+        onClose={handleClose}
       />
     )
   );
 
-  return <div className={className}>{modalComponents}</div>;
+  return (
+    <div className={className}>
+      {modalComponents}
+    </div>
+  );
 };
 
 export default forwardRef(ModalFactory);

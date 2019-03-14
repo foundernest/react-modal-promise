@@ -26,7 +26,7 @@ export function getArrayIndexOfItem(array, equalityCallback) {
 }
 
 export function insertObjectItem(object, item) {
-  return { ...object, item };
+  return { ...object, ...item };
 }
 
 export function removeObjectItemByKey(object, key) {

@@ -9,7 +9,8 @@ const PromiseModal = () => {
 }
 
 const createModal = (Component, options) => props => modalFactoryRef.current.addModal(Component, options)(props)
+const closeModal = (hash) => modalFactoryRef.current.deleteModal(hash)
 
 export default PromiseModal
 
-export { createModal }
+export { createModal, closeModal }
