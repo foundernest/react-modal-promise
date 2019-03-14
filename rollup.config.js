@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel';
+import minify from 'rollup-plugin-babel-minify'
 import pkg from './package.json';
 
 export default {
@@ -19,5 +20,6 @@ export default {
   ],
   plugins: [
     babel(),
+    minify(),
   ]
 };
