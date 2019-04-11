@@ -21,7 +21,7 @@ declare module "react-modal-promise" {
       options?: {
         timeout?: ModalTimeout;
       }
-    ): (props: Omit<T, "transitionState" | "onClose" | "timeout">) => Result;
+    ): (props?: Omit<T, "transitionState" | "onClose" | "timeout">) => Result;
   }
 
   type CloseModal = (hash: string) => void;
