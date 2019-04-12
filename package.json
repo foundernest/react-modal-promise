@@ -1,6 +1,6 @@
 {
   "name": "@foundernest/react-modal-promise",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Modal promise wrapper for React components",
   "keywords": [
     "foundernest",

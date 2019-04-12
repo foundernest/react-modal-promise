@@ -1,7 +1,7 @@
 import * as React from "react";
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-declare module "react-modal-promise" {
+declare module "@foundernest/react-modal-promise" {
   export type ModalTimeout = {
     enter: number;
     exit: number;
