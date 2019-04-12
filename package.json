@@ -1,8 +1,9 @@
 {
-  "name": "react-modal-promise",
-  "version": "0.2.1",
+  "name": "@foundernest/react-modal-promise",
+  "version": "0.2.2",
   "description": "Modal promise wrapper for React components",
   "keywords": [
+    "foundernest",
     "react",
     "modal",
     "dialog",
@@ -23,14 +24,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cudr/react-modal-promise.git"
+    "url": "git+https://github.com/foundernest/react-modal-promise.git"
   },
   "author": "cudr",
+  "contributors": [
+    "foundernest"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cudr/react-modal-promise/issues"
+    "url": "https://github.com/foundernest/react-modal-promise/issues"
   },
-  "homepage": "https://github.com/cudr/react-modal-promise#readme",
+  "homepage": "https://github.com/foundernest/react-modal-promise#readme",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
